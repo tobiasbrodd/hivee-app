@@ -44,6 +44,15 @@ function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                 <List>
                     <ListItem
                         button
+                        key={"Sensors"}
+                        component={Link}
+                        to="/sensors"
+                    >
+                        <ListItemIcon><TimelineIcon /></ListItemIcon>
+                        <ListItemText primary={"Sensors"} />
+                    </ListItem>
+                    <ListItem
+                        button
                         key={"Not Found"}
                         component={Link}
                         to="/notfound"
