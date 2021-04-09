@@ -1,7 +1,8 @@
 import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import ScrollToTop from '../../common/scroll/Scroll';
+import { setTitle } from '../../../store/reducers';
+import { useAppDispatch } from '../../../store/hooks';
 
 const title = "Dashboard";
 
@@ -11,13 +12,15 @@ const helmet = {
 };
 
 export default function Dashboard() {
+    const dispatch = useAppDispatch();
+    dispatch(setTitle(title));
+    
     return (
         <div>
             <Helmet>
                 <title>{helmet.title}</title>
                 <meta name="description" content={helmet.description} />
             </Helmet>
-            <Title>{title}</Title>
             <Typography paragraph>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                 ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
@@ -91,9 +94,3 @@ export default function Dashboard() {
         </div>
     );
 }
-
-const Title = styled.h1`
-    text-align: left;
-    margin-top: 16px;
-    margin-bottom: 16px;
-`;

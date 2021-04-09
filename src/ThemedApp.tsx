@@ -1,14 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from "styled-components";
 import { MuiThemeProvider, StylesProvider } from "@material-ui/core/styles";
 import App from "./App";
-
-const history = createBrowserHistory({
-    basename: process.env.PUBLIC_URL
-});
+import store from './store/store';
+import { Provider } from 'react-redux';
 
 function ThemedApp() {
     const [darkMode, setDarkMode] = useState(false);
@@ -129,9 +126,11 @@ function ThemedApp() {
             <MuiThemeProvider theme={theme}>
                 <ThemeProvider theme={theme}>
                     <React.StrictMode>
-                        <Router history={history}>
-                            <App darkMode={darkMode} setDarkMode={setDarkMode} />
-                        </Router>
+                        <BrowserRouter>
+                            <Provider store={store}>
+                                <App darkMode={darkMode} setDarkMode={setDarkMode} />
+                            </Provider>
+                        </BrowserRouter>
                     </React.StrictMode>
                 </ThemeProvider>
             </MuiThemeProvider>

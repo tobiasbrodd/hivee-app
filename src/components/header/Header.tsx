@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 import { useTheme, Theme } from '@material-ui/core/styles';
+import { useAppSelector } from '../../store/hooks';
 
 interface ThemeProps {
     theme: Theme
@@ -21,6 +22,7 @@ interface HeaderProps {
 }
 
 function Header({ mobileOpen, setMobileOpen, darkMode, setDarkMode }: HeaderProps) {
+    const title = useAppSelector(state => state.title);
     const theme = useTheme();
 
     const handleDrawerToggle = () => {
@@ -43,7 +45,7 @@ function Header({ mobileOpen, setMobileOpen, darkMode, setDarkMode }: HeaderProp
                 >
                     <MenuIcon />
                 </MenuButton>
-                <Space/>
+                <Title>{title.value}</Title>
                 <ThemeToggle onClick={toggleDarkMode}>
                     {darkMode ? <WbSunnyIcon /> : <NightsStayIcon />}
                 </ThemeToggle>
@@ -71,7 +73,10 @@ const MenuButton = styled(IconButton)`
     }
 `;
 
-const Space = styled.div`
+const Title = styled.h1`
+    text-align: left;
+    margin-top: 16px;
+    margin-bottom: 16px;
     flex-grow: 1;
 `;
 
