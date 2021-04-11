@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import ScrollToTop from '../../common/scroll/Scroll';
-import { setTitle } from '../../../store/reducers';
+import { setTitle } from '../../../store/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
 
 const title = "Sensors";

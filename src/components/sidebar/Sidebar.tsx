@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,22 +11,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import { useTheme, Theme } from '@material-ui/core/styles';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { toggleMenu } from '../../store/menuSlice';
 
 interface ThemeProps {
     theme: Theme
 }
 
-interface SidebarProps {
-    mobileOpen: boolean
-    setMobileOpen: Dispatch<SetStateAction<any>>
-}
-
-function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
+function Sidebar() {
+    const menu = useAppSelector(state => state.menu);
+    const dispatch = useAppDispatch();
     const theme = useTheme();
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    }
 
     const drawer = (
         <DrawerContainer>
@@ -85,8 +79,8 @@ function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                 <DrawerPaper
                     variant="temporary"
                     anchor="left"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
+                    open={menu.isOpen}
+                    onClose={() => dispatch(toggleMenu())}
                     ModalProps={{
                         keepMounted: true
                     }}

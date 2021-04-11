@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import NightsStayIcon from '@material-ui/icons/NightsStay';
@@ -8,30 +7,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 import { useTheme, Theme } from '@material-ui/core/styles';
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { toggleMenu } from '../../store/menuSlice';
+import { toggleTheme } from '../../store/themeSlice';
 
 interface ThemeProps {
     theme: Theme
 }
 
-interface HeaderProps {
-    mobileOpen: boolean
-    setMobileOpen: Dispatch<SetStateAction<any>>
-    darkMode: boolean
-    setDarkMode: Dispatch<SetStateAction<any>>
-}
-
-function Header({ mobileOpen, setMobileOpen, darkMode, setDarkMode }: HeaderProps) {
+function Header() {
     const title = useAppSelector(state => state.title);
+    const appTheme = useAppSelector(state => state.theme);
+    const dispatch = useAppDispatch();
     const theme = useTheme();
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    }
-
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-    }
+    const isDark = appTheme.value === "dark";
 
     return (
         <StyledAppBar position="fixed" color="inherit" theme={theme}>
@@ -40,14 +29,14 @@ function Header({ mobileOpen, setMobileOpen, darkMode, setDarkMode }: HeaderProp
                     color="inherit"
                     aria-label="open drawer"
                     edge="start"
-                    onClick={handleDrawerToggle}
+                    onClick={() => dispatch(toggleMenu())}
                     theme={theme}
                 >
                     <MenuIcon />
                 </MenuButton>
                 <Title>{title.value}</Title>
-                <ThemeToggle onClick={toggleDarkMode}>
-                    {darkMode ? <WbSunnyIcon /> : <NightsStayIcon />}
+                <ThemeToggle onClick={() => dispatch(toggleTheme())}>
+                    {isDark ? <WbSunnyIcon /> : <NightsStayIcon />}
                 </ThemeToggle>
             </StyledToolbar>
         </StyledAppBar>

@@ -1,19 +1,19 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from "styled-components";
 import { MuiThemeProvider, StylesProvider } from "@material-ui/core/styles";
+import { useAppSelector } from './store/hooks';
 import App from "./App";
-import store from './store/store';
-import { Provider } from 'react-redux';
 
 function ThemedApp() {
-    const [darkMode, setDarkMode] = useState(false);
+    const appTheme = useAppSelector(state => state.theme);
 
     const theme = useMemo(() => {
+        const isDark = appTheme.value === "dark";
         return createMuiTheme({
             palette: {
-                type: darkMode ? "dark" : "light",
+                type: isDark ? "dark" : "light",
                 primary: {
                     main: "#fff",
                     dark: "#000"
@@ -23,8 +23,8 @@ function ThemedApp() {
                     dark: "#000"
                 },
                 background: {
-                    default: darkMode ? "#000" : "#fff",
-                    paper: darkMode ? "#000" : "#fff",
+                    default: isDark ? "#000" : "#fff",
+                    paper: isDark ? "#000" : "#fff",
                 }
             },
             typography: {
@@ -119,7 +119,7 @@ function ThemedApp() {
                 }
             }
         })
-    }, [darkMode]);
+    }, [appTheme]);
 
     return (
         <StylesProvider injectFirst>
@@ -127,9 +127,7 @@ function ThemedApp() {
                 <ThemeProvider theme={theme}>
                     <React.StrictMode>
                         <BrowserRouter>
-                            <Provider store={store}>
-                                <App darkMode={darkMode} setDarkMode={setDarkMode} />
-                            </Provider>
+                            <App />
                         </BrowserRouter>
                     </React.StrictMode>
                 </ThemeProvider>

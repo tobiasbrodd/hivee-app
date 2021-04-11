@@ -1,10 +1,14 @@
 import ReactDOM from 'react-dom';
-import './index.css';
-import ThemedApp from './ThemedApp';
+import store from './store/store';
+import { Provider } from 'react-redux';
+import AppContainer from './AppContainer';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 ReactDOM.render(
-    <ThemedApp />,
+    <Provider store={store}>
+        <AppContainer />
+    </Provider>,
     document.getElementById('root')
 );
 
