@@ -4,7 +4,7 @@ export const loadState = () => {
     try {
         const serializedState = localStorage.getItem("state");
         if (serializedState === null) {
-            return undefined;
+            throw new Error("No local storage state found!");
         }
         return JSON.parse(serializedState);
     } catch (error) {
