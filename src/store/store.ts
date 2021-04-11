@@ -15,10 +15,14 @@ const store = configureStore({
     preloadedState
 });
 
+const select = (state: RootState) => {
+    return {
+        theme: state.theme
+    }
+}
+
 store.subscribe(() => {
-    saveState({
-        theme: store.getState().theme
-    })
+    saveState(select(store.getState()))
 });
 
 export default store;
