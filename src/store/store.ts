@@ -4,7 +4,23 @@ import themeReducer from './themeSlice';
 import menuReducer from './menuSlice';
 import { loadState, saveState } from './localStorage';
 
-const preloadedState = loadState();
+const preloadState = () => {
+    var loadedState = loadState();
+    if (loadedState === undefined) {
+        loadedState = {};
+    }
+
+    if (!("theme" in loadedState)) {
+        if (matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) {
+            loadedState.theme = { value: "dark" };
+        } else {
+            loadedState.theme = { value: "light" };
+        }
+    }
+
+    return loadedState;
+}
+const preloadedState = preloadState();
 
 const store = configureStore({
     reducer: {
