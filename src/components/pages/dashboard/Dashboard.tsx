@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import ScrollToTop from '../../common/scroll/Scroll';
 import { setTitle } from '../../../store/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
+import { useEffect } from 'react';
 
 const title = "Dashboard";
 
@@ -13,7 +14,9 @@ const helmet = {
 
 export default function Dashboard() {
     const dispatch = useAppDispatch();
-    dispatch(setTitle(title));
+    useEffect(() => {
+        dispatch(setTitle(title));
+    }, [dispatch]);
     
     return (
         <div>
