@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from "styled-components";
-import { MuiThemeProvider, StylesProvider } from "@material-ui/core/styles";
+import { ThemeProvider as MuiThemeProvider, StylesProvider } from "@material-ui/core/styles";
 import { useAppSelector } from './store/hooks';
 import App from "./App";
 
@@ -16,15 +17,26 @@ function ThemedApp() {
                 type: isDark ? "dark" : "light",
                 primary: {
                     main: "#fff",
-                    dark: "#000"
+                    dark: "#000",
+                    contrastText: isDark ? "#fff" : "#000",
                 },
                 secondary: {
-                    main: "#fff",
-                    dark: "#000"
+                    main: "#000",
+                    dark: "#fff",
+                    contrastText: isDark ? "#000" : "#fff",
                 },
                 background: {
-                    default: isDark ? "#000" : "#fff",
-                    paper: isDark ? "#000" : "#fff",
+                    default: isDark ? "#0A0C10" : "#fafafa",
+                    paper: isDark ? "#0D1117" : "#fff",
+                },
+                error: {
+                    light: "#e57373",
+                    main: "#f44336",
+                    dark: "#d32f2f",
+                    contrastText: "#fff"
+                },
+                text: {
+                    primary: isDark ? "#fff" : "#000",
                 }
             },
             typography: {
@@ -125,6 +137,7 @@ function ThemedApp() {
         <StylesProvider injectFirst>
             <MuiThemeProvider theme={theme}>
                 <ThemeProvider theme={theme}>
+                    <CssBaseline />
                     <React.StrictMode>
                         <BrowserRouter>
                             <App />

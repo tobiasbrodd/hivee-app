@@ -8,11 +8,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import { useTheme, Theme } from '@material-ui/core/styles';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { toggleMenu } from '../../store/menuSlice';
+import { toggleMenu } from '../../store/slices/menu/menuSlice';
+import Logo from '../common/logo/Logo';
 
 interface ThemeProps {
     theme: Theme
@@ -26,12 +26,7 @@ function Sidebar() {
     const drawer = (
         <DrawerContainer>
             <ToolbarDiv>
-                <Title
-                    component={Link}
-                    to="/"
-                >
-                    Hivee
-                </Title>
+                <Logo />
             </ToolbarDiv>
             <Menu>
                 <Divider />
@@ -101,7 +96,6 @@ function Sidebar() {
 }
 
 const ToolbarDiv = styled.div`
-    min-height: 75px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,11 +120,6 @@ const DrawerContainer = styled.div`
     flex-direction: column;
     height: 100%;
 `;
-
-const Title = styled(Button)`
-    height: 75px;
-` as typeof Button;
-
 
 const Menu = styled.div`
     flex-grow: 1;

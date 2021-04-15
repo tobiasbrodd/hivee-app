@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import titleReducer from './titleSlice';
-import themeReducer from './themeSlice';
-import menuReducer from './menuSlice';
+import titleReducer from './slices/title/titleSlice';
+import themeReducer from './slices/theme/themeSlice';
+import menuReducer from './slices/menu/menuSlice';
+import weatherReducer from './slices/weather/weatherSlice';
+import settingsReducer from './slices/settings/settingsSlice';
+import locationReducer from './slices/location/locationSlice';
 import { loadState, saveState } from './localStorage';
+import config from '../config.json';
 
 const preloadState = () => {
     var loadedState = loadState();
@@ -18,6 +22,14 @@ const preloadState = () => {
         }
     }
 
+    loadedState.settings = {
+        weather: {
+            openWeather: {
+                apiKey: config.openWeather.apiKey
+            }
+        }
+    }
+
     return loadedState;
 }
 const preloadedState = preloadState();
@@ -27,6 +39,9 @@ const store = configureStore({
         title: titleReducer,
         theme: themeReducer,
         menu: menuReducer,
+        weather: weatherReducer,
+        location: locationReducer,
+        settings: settingsReducer,
     },
     preloadedState
 });

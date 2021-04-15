@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface TitleState {
-    value: string
-}
+import TitleState from './titleState';
 
 export const slice = createSlice({
     name: "title",

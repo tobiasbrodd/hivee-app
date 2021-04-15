@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-interface MenuState {
-    isOpen: boolean
-}
+import MenuState from './menuState';
 
 export const slice = createSlice({
     name: "menu",

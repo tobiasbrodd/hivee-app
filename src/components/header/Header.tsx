@@ -2,14 +2,15 @@ import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import NightsStayIcon from '@material-ui/icons/NightsStay';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import Divider from '@material-ui/core/Divider';
 import Button from "@material-ui/core/Button";
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 import { useTheme, Theme } from '@material-ui/core/styles';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { toggleMenu } from '../../store/menuSlice';
-import { toggleTheme } from '../../store/themeSlice';
+import { toggleMenu } from '../../store/slices/menu/menuSlice';
+import { toggleTheme } from '../../store/slices/theme/themeSlice';
 
 interface ThemeProps {
     theme: Theme
@@ -36,15 +37,24 @@ function Header() {
                 </MenuButton>
                 <Title>{title.value}</Title>
                 <ThemeToggle onClick={() => dispatch(toggleTheme())}>
-                    {isDark ? <WbSunnyIcon /> : <NightsStayIcon />}
+                    {isDark ? <LightIcon /> : <DarkIcon />}
                 </ThemeToggle>
             </StyledToolbar>
+            <Divider />
         </StyledAppBar>
     );
 }
 
+const LightIcon = styled(WbSunnyIcon)`
+    color: #F9D00F;
+`;
+
+const DarkIcon = styled(NightsStayIcon)`
+    color: #000;
+`;
+
 const StyledAppBar = styled(AppBar)`
-    height: 75px;
+    min-height: 75px;
     box-shadow: none;
     ${(props: ThemeProps) => props.theme.breakpoints.up("sm")} {
         width: calc(100% - 240px);
