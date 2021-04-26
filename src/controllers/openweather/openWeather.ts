@@ -3,6 +3,14 @@ import { Location } from '../../store/slices/location/locationState';
 import { Weather } from '../../store/slices/weather/weatherState';
 import { WeatherReponse, GeoResponse } from './openWeatherResponse';
 
+const capitalize = (text?: string) => {
+    if (!text) {
+        return undefined;
+    }
+
+    return text.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+};
+
 export default class OpenWeather {
     static WEATHER_API = "https://api.openweathermap.org/data/2.5";
     static GEO_API = "https://api.openweathermap.org/geo/1.0";
@@ -47,7 +55,8 @@ export default class OpenWeather {
             sun: {
                 sunrise: data.sys.sunrise,
                 sunset: data.sys.sunset
-            }
+            },
+            description: capitalize(data.weather[0].description)
         };
     }
 
