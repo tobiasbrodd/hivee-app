@@ -8,10 +8,13 @@ function WeatherCard() {
     const { location } = useAppSelector(state => state.location);
     const city = location.city ?? "-";
     const temperature = weather.air.temperature.value ?? "-";
+    const description = weather.description ?? "-";
+
     return (
         <Container>
             <CardContainer>
                 <Title variant="h2">{city}</Title>
+                <Title variant="h3">{description}</Title>
                 <Content>
                     <TempContainer>
                         <Temp variant="h1">{temperature}</Temp>
