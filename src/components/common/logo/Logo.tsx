@@ -1,12 +1,20 @@
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import styled from 'styled-components';
+import { useAppDispatch } from '../../../store/hooks';
+import { closeMenu } from '../../../store/slices/menu/menuSlice';
 import logo from "../../../assets/logo.png";
 
 function Logo() {
+    const dispatch = useAppDispatch();
+
     return (
         <LogoContainer>
-            <LogoLink component={RouterLink} to="/">
+            <LogoLink
+                component={RouterLink}
+                to="/"
+                onClick={() => dispatch(closeMenu())}
+            >
                 <Container>
                     <Image
                         alt="Hivee"

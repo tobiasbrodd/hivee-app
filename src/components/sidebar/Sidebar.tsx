@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import TimelineIcon from '@material-ui/icons/Timeline';
+import EcoIcon from '@material-ui/icons/Eco';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import SettingsIcon from '@material-ui/icons/Settings';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,7 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import styled from 'styled-components';
 import { useTheme, Theme } from '@material-ui/core/styles';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { toggleMenu } from '../../store/slices/menu/menuSlice';
+import { closeMenu } from '../../store/slices/menu/menuSlice';
 import Logo from '../common/logo/Logo';
 
 interface ThemeProps {
@@ -36,18 +37,20 @@ function Sidebar() {
                         key={"Sensors"}
                         component={Link}
                         to="/sensors"
+                        onClick={() => dispatch(closeMenu())}
                     >
-                        <ListItemIcon><TimelineIcon /></ListItemIcon>
+                        <ListItemIcon><EcoIcon /></ListItemIcon>
                         <ListItemText primary={"Sensors"} />
                     </ListItem>
                     <ListItem
                         button
-                        key={"Not Found"}
+                        key={"Weather"}
                         component={Link}
-                        to="/notfound"
+                        to="/weather"
+                        onClick={() => dispatch(closeMenu())}
                     >
-                        <ListItemIcon><TimelineIcon /></ListItemIcon>
-                        <ListItemText primary={"Not Found"} />
+                        <ListItemIcon><WbSunnyIcon /></ListItemIcon>
+                        <ListItemText primary={"Weather"} />
                     </ListItem>
                 </List>
             </Menu>
@@ -59,6 +62,7 @@ function Sidebar() {
                         key={"Settings"}
                         component={Link}
                         to="/settings"
+                        onClick={() => dispatch(closeMenu())}
                     >
                         <ListItemIcon><SettingsIcon /></ListItemIcon>
                         <ListItemText primary={"Settings"} />
@@ -75,7 +79,7 @@ function Sidebar() {
                     variant="temporary"
                     anchor="left"
                     open={menu.isOpen}
-                    onClose={() => dispatch(toggleMenu())}
+                    onClose={() => dispatch(closeMenu())}
                     ModalProps={{
                         keepMounted: true
                     }}

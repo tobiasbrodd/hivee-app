@@ -10,10 +10,16 @@ export const slice = createSlice({
         toggleMenu: (state) => {
             state.isOpen = !state.isOpen;
         },
+        closeMenu: (state) => {
+            state.isOpen = false;
+        },
+        openMenu: (state) => {
+            state.isOpen = true;
+        },
     },
 });
 
-export const { toggleMenu } = slice.actions;
+export const { toggleMenu, closeMenu, openMenu } = slice.actions;
 
 export const selectMenu = (state: MenuState) => state.isOpen;
 
