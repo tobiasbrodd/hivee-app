@@ -1,14 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from "styled-components";
 import { ThemeProvider as MuiThemeProvider, StylesProvider } from "@material-ui/core/styles";
-import { useAppSelector } from './store/hooks';
+import { useAppDispatch, useAppSelector } from './store/hooks';
 import App from "./App";
+import { mqttConnect } from './controllers/mqtt/mqtt';
 
 function ThemedApp() {
     const appTheme = useAppSelector(state => state.theme);
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(mqttConnect());
+    }, [dispatch]);
 
     const theme = useMemo(() => {
         const isDark = appTheme.value === "dark";
