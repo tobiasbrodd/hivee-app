@@ -56,7 +56,7 @@ export default class OpenWeather {
                 sunrise: data.sys.sunrise,
                 sunset: data.sys.sunset
             },
-            description: capitalize(data.weather[0].description)
+            description: capitalize(data.weather[0].description),
         };
     }
 
