@@ -4,23 +4,29 @@ import styled from 'styled-components';
 import { useAppSelector } from '../../../store/hooks';
 
 function WeatherCard() {
-    const { weather } = useAppSelector(state => state.weather);
+    const { weather, timestamp } = useAppSelector(state => state.weather);
     const { location } = useAppSelector(state => state.location);
     const city = location.city ?? "-";
-    const temperature = weather.air.temperature.value ?? "-";
+    const temperature = weather.air.temperature.value?.toFixed(1) ?? "-";
     const description = weather.description ?? "-";
+    const date = new Date((timestamp ?? 0));
 
     return (
         <Container>
             <CardContainer>
-                <Title variant="h2">{city}</Title>
-                <Title variant="h3">{description}</Title>
-                <Content>
-                    <TempContainer>
-                        <Temp variant="h1">{temperature}</Temp>
-                        <Symbol variant="h3">{"°"}</Symbol>
-                    </TempContainer>
-                </Content>
+                <Title variant="h4">{description}</Title>
+                <TempContainer>
+                    <Temp variant="h1">{temperature}</Temp>
+                    <Symbol variant="h3">{"°"}</Symbol>
+                </TempContainer>
+                <Footer>
+                    <FooterItem>
+                        {city}
+                    </FooterItem>
+                    <FooterItem>
+                        {date.toLocaleString("sv")}
+                    </FooterItem>
+                </Footer>
             </CardContainer>
         </Container>
     );
@@ -40,20 +46,12 @@ const Container = styled(Paper)`
 const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
-    // align-items: left;
     width: 100%;
     height: 100%;
     padding: 10px 5%;
     background-color: transparent;
     cursor: pointer;
-`;
-
-const Content = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 `;
 
@@ -73,6 +71,14 @@ const Temp = styled(Typography)`
 `;
 
 const Symbol = styled(Typography)`
+    margin-bottom: 5px;
+`;
+
+const Footer = styled.div`
+`;
+
+const FooterItem = styled(Typography)`
+    text-align: center;
     margin-bottom: 5px;
 `;
 
