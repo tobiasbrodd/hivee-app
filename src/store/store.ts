@@ -3,10 +3,12 @@ import titleReducer from './slices/title/titleSlice';
 import themeReducer from './slices/theme/themeSlice';
 import menuReducer from './slices/menu/menuSlice';
 import weatherReducer from './slices/weather/weatherSlice';
-import settingsReducer from './slices/settings/settingsSlice';
 import locationReducer from './slices/location/locationSlice';
+import climateReducer from './slices/climate/climateSlice';
+import settingsReducer from './slices/settings/settingsSlice';
 import { loadState, saveState } from './localStorage';
 import config from '../config.json';
+import createMiddleware from '../controllers/mqtt/mqtt';
 
 const preloadState = () => {
     var loadedState = loadState();
@@ -41,8 +43,12 @@ const store = configureStore({
         menu: menuReducer,
         weather: weatherReducer,
         location: locationReducer,
+        climate: climateReducer,
         settings: settingsReducer,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware()
+            .prepend(createMiddleware()),
     preloadedState
 });
 

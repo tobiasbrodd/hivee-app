@@ -1,44 +1,81 @@
-import MQTT from 'async-mqtt';
+import { createAction } from '@reduxjs/toolkit';
+import { MqttClient, connect } from 'mqtt';
+import { Middleware, MiddlewareAPI } from 'redux';
 
-var options = {
+const options = {
     host: "localhost",
     port: 8083,
     protocol: "wss",
     clientId: "hivee-app",
 };
 
-const topic = "topic/hivee";
-const zigbee = "zigbee2mqtt/bridge/state";
-const client = MQTT.connect(options);
+const topics: { [action: string]: string } = {
+    "SET_CLIMATE": "hivee/climate",
+};
 
-client.on("connect", () => {
-    console.log("Connected");
-});
+const actions: { [topic: string]: string } = {
+    "hivee/climate": "SET_CLIMATE",
+};
 
-client.on("error", (err) => {
-    console.log("Error: " + err);
-});
+export const mqttConnect = createAction("MQTT_CONNECT");
+export const mqttPublish = createAction<string, string>("MQTT_PUBLISH");
 
-client.on("reconnect", () => {
-    console.log("Reconnecting");
-});
+class ReduxMQTT {
+    client: MqttClient;
 
-client.subscribe(topic).catch(error => {
-    if (error) {
-        console.log("Subscribe to topics error", error);
+    constructor() {
+        this.client = connect(options);
     }
-});
 
-client.subscribe(zigbee).catch(error => {
-    if (error) {
-        console.log("Subscribe to topics error", error);
+    connect(store: MiddlewareAPI) {
+        this.client.on("connect", () => {
+            console.log("MQTT - Connected");
+
+            Object.keys(topics).forEach(action => {
+                const topic = topics[action];
+                this.client.subscribe(topic);
+            });
+        });
+
+        this.client.on("error", (err) => {
+            console.log("MQTT - Error: " + err);
+        });
+
+        this.client.on("reconnect", () => {
+            console.log("MQTT - Reconnecting");
+        });
+
+        this.client.on("message", (topic, message) => {
+            console.log("Topic: " + topic);
+            console.log("MQTT - Message: " + message.toString());
+
+            store.dispatch({
+                type: actions[topic],
+                payload: message.toString()
+            });
+        });
     }
-});
+}
 
-client.on("message", (topic, message) => {
-    const payload = { topic, message: message.toString() };
-    console.log("Topic: " + payload.topic);
-    console.log("Message: " + payload.message);
-});
+export default function createMiddleware(): Middleware {
+    const reduxMQTT = new ReduxMQTT();
 
-export default client;
+    return store => next => action => {
+        switch (action.type) {
+            case "MQTT_CONNECT":
+                reduxMQTT.connect(store);
+                break;
+            case "MQTT_PUBLISH":
+                const payload = action.payload;
+                const topic = payload.topic;
+                const message = payload.message;
+                reduxMQTT.client.publish(
+                    topic,
+                    JSON.stringify(message)
+                );
+                break;
+            default:
+                return next(action);
+        }
+    }
+}
