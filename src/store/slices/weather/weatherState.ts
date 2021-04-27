@@ -35,5 +35,6 @@ export interface Weather {
 
 export default interface WeatherState {
     weather: Weather,
-    source?: string
+    source?: string,
+    timestamp?: number,
 }

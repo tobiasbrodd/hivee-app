@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import OpenWeather from '../../../controllers/openweather/openWeather';
 import LocationState from '../location/locationState';
 import SettingsState from '../settings/settingsState';
-import WeatherState, { Weather } from './weatherState';
+import WeatherState from './weatherState';
 
 const initialState: WeatherState = {
     weather: {
@@ -45,9 +45,6 @@ export const slice = createSlice({
     name: "weather",
     initialState,
     reducers: {
-        setWeather: (state, action: PayloadAction<Weather>) => {
-            state.weather = action.payload;
-        },
         setSource: (state, action: PayloadAction<string>) => {
             state.source = action.payload;
         },
@@ -55,11 +52,12 @@ export const slice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchWeather.fulfilled, (state, action) => {
             state.weather = action.payload;
+            state.timestamp = new Date().getTime();
         })
     }
 });
 
-export const { setWeather, setSource } = slice.actions;
+export const { setSource } = slice.actions;
 
 export const selectWeather = (state: WeatherState) => state.weather;
 export const selectSource = (state: WeatherState) => state.source;
