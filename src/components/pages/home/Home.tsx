@@ -5,15 +5,16 @@ import { useAppDispatch } from '../../../store/hooks';
 import { useEffect } from 'react';
 import WeatherCard from '../../common/cards/WeatherCard';
 import styled from 'styled-components';
+import ClimateCard from '../../common/cards/ClimateCard';
 
-const title = "Dashboard";
+const title = "Home";
 
 const helmet = {
-    title: "Hivee - Dashboard",
-    description: "Hivee dashboard."
+    title: "Hivee - Home",
+    description: "Hivee home."
 };
 
-export default function Dashboard() {
+export default function Home() {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(setTitle(title));
@@ -25,19 +26,20 @@ export default function Dashboard() {
                 <title>{helmet.title}</title>
                 <meta name="description" content={helmet.description} />
             </Helmet>
-            <WeatherContainer>
+            <Container>
                 <WeatherCard />
-            </WeatherContainer>
+                <ClimateCard />
+            </Container>
             <ScrollToTop />
         </div>
     );
 }
 
-const WeatherContainer = styled.div`
+const Container = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
     align-items: center;
-    width: 90%;
+    width: 100%;
 `;
