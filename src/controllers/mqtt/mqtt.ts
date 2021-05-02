@@ -10,11 +10,15 @@ const options = {
 };
 
 const topics: { [action: string]: string } = {
-    "SET_CLIMATE": "hivee/climate",
+    "SET_TEMPERATURE": "hivee/temperature",
+    "SET_HUMIDITY": "hivee/humidity",
+    "SET_PRESSURE": "hivee/pressure",
 };
 
 const actions: { [topic: string]: string } = {
-    "hivee/climate": "SET_CLIMATE",
+    "hivee/temperature": "SET_TEMPERATURE",
+    "hivee/humidity": "SET_HUMIDITY",
+    "hivee/pressure": "SET_PRESSURE",
 };
 
 export const mqttConnect = createAction("MQTT_CONNECT");
