@@ -4,21 +4,28 @@ import styled from 'styled-components';
 import { useAppSelector } from '../../../store/hooks';
 
 function ClimateCard() {
-    const { climate } = useAppSelector(state => state.climate);
-    const temperature = climate.temperature?.toFixed(1) ?? "-";
-    const source = climate.source ?? "-";
-    const timestamp = climate.timestamp ?? 0;
+    const { temperature } = useAppSelector(state => state.climate);
+    const value = temperature?.value?.toFixed(1) ?? "-";
+    const location = temperature?.location ?? "-";
+    const timestamp = temperature?.timestamp ?? 0;
     const date = new Date(timestamp * 1000);
 
     return (
         <Container>
             <CardContainer>
-                <Title variant="h4">{source}</Title>
-                <ClimateContainer>
-                    <Value variant="h1">{temperature}</Value>
+                <Title variant="h4">Temperature</Title>
+                <TempContainer>
+                    <Temp variant="h1">{value}</Temp>
                     <Symbol variant="h3">{"°"}</Symbol>
-                </ClimateContainer>
-                <Footer>{date.toLocaleString("sv")}</Footer>
+                </TempContainer>
+                <Footer>
+                    <FooterItem>
+                        {location}
+                    </FooterItem>
+                    <FooterItem>
+                        {date.toLocaleString("sv")}
+                    </FooterItem>
+                </Footer>
             </CardContainer>
         </Container>
     );
@@ -47,7 +54,7 @@ const CardContainer = styled.div`
     align-items: center;
 `;
 
-const ClimateContainer = styled.div`
+const TempContainer = styled.div`
     display: flex;
     flex-direction: row;
     text-align: right;
@@ -58,7 +65,7 @@ const Title = styled(Typography)`
     margin-bottom: 5px;
 `;
 
-const Value = styled(Typography)`
+const Temp = styled(Typography)`
     margin-bottom: 5px;
 `;
 
@@ -66,7 +73,10 @@ const Symbol = styled(Typography)`
     margin-bottom: 5px;
 `;
 
-const Footer = styled(Typography)`
+const Footer = styled.div`
+`;
+
+const FooterItem = styled(Typography)`
     text-align: center;
     margin-bottom: 5px;
 `;
