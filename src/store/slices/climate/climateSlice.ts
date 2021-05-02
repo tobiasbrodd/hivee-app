@@ -6,31 +6,39 @@ const parseClimate = (payload: string) => {
     console.log(parsed);
 
     return {
-        temperature: parsed.temperature,
-        humidity: parsed.humidity,
-        pressure: parsed.pressure,
-        source: parsed.source,
+        value: parsed.value,
+        location: parsed.location,
         timestamp: parsed.timestamp,
     }
 }
 
 const initialState: ClimateState = {
-    climate: {}
+    temperature: {},
+    humidity: {},
+    pressure: {},
 }
 
-export const setClimate = createAction<string>("SET_CLIMATE");
+export const setTemperature = createAction<string>("SET_TEMPERATURE");
+export const setHumidity = createAction<string>("SET_HUMIDITY");
+export const setPressure = createAction<string>("SET_PRESSURE");
 
 export const slice = createSlice({
     name: "climate",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(setClimate, (state, action) => {
-            state.climate = parseClimate(action.payload);
+        builder.addCase(setTemperature, (state, action) => {
+            state.temperature = parseClimate(action.payload);
+        }).addCase(setHumidity, (state, action) => {
+            state.humidity = parseClimate(action.payload);
+        }).addCase(setPressure, (state, action) => {
+            state.pressure = parseClimate(action.payload);
         })
     }
 });
 
-export const selectClimate = (state: ClimateState) => state.climate;
+export const selectTemperature = (state: ClimateState) => state.temperature;
+export const selectHumidity = (state: ClimateState) => state.humidity;
+export const selectPressure = (state: ClimateState) => state.pressure;
 
 export default slice.reducer;

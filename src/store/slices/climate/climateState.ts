@@ -1,11 +1,11 @@
-export interface Climate {
-    temperature?: number,
-    pressure?: number,
-    humidity?: number,
-    source?: string,
+export interface ClimateValue {
+    value?: number,
+    location?: string,
     timestamp?: number,
 }
 
 export default interface ClimateState {
-    climate: Climate,
+    temperature?: ClimateValue,
+    pressure?: ClimateValue,
+    humidity?: ClimateValue,
 }
