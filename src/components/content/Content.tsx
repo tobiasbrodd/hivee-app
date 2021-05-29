@@ -4,7 +4,6 @@ import Routes from './Routes'
 function Content() {
     return (
         <MainContent>
-            <Toolbar />
             <Routes />
         </MainContent>
     );
@@ -12,11 +11,7 @@ function Content() {
 
 const MainContent = styled.main`
     flex-grow: 1;
-    padding: 32px;
-`;
-
-const Toolbar = styled.div`
-    min-height: 75px;
+    padding: 100px 32px 8px 32px;
 `;
 
 export default Content;
