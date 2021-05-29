@@ -48,10 +48,13 @@ export default class OpenWeather {
                 speed: data.wind.speed,
                 direction: data.wind.deg,
             },
-            cloud: {
+            clouds: {
                 value: data.clouds.all
             },
-            precipitation: {},
+            precipitation: {
+                rain: (data.rain ? data.rain['1h'] : undefined),
+                snow: (data.snow ? data.snow['1h'] : undefined)
+            },
             sun: {
                 sunrise: data.sys.sunrise,
                 sunset: data.sys.sunset

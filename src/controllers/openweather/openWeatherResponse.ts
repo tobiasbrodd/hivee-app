@@ -20,8 +20,8 @@ export interface WeatherReponse {
     name: string,
     sys: {
         country: string,
-        sunrise: bigint,
-        sunset: bigint,
+        sunrise: number,
+        sunset: number,
     },
     timezone: bigint,
     visibility: number,
@@ -35,6 +35,14 @@ export interface WeatherReponse {
         deg: number,
         speed: number,
         gust?: number
+    },
+    rain?: {
+        "1h"?: number,
+        "3h"?: number
+    },
+    snow?: {
+        "1h"?: number,
+        "3h"?: number
     }
 }
 
