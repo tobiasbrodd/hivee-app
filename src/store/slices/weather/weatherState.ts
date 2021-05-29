@@ -14,7 +14,7 @@ export interface Weather {
         direction?: number,
         gust?: number,
     },
-    cloud: {
+    clouds: {
         min?: number,
         max?: number,
         value?: number,
@@ -27,8 +27,8 @@ export interface Weather {
         thunder?: number,
     },
     sun: {
-        sunrise?: bigint,
-        sunset?: bigint,
+        sunrise?: number,
+        sunset?: number,
         uv?: bigint,
     }
 }

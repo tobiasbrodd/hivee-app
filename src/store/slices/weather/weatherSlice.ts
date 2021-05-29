@@ -10,7 +10,7 @@ const initialState: WeatherState = {
             temperature: {}
         },
         wind: {},
-        cloud: {},
+        clouds: {},
         precipitation: {},
         sun: {}
     }
