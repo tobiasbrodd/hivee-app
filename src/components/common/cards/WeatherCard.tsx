@@ -2,17 +2,26 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../store/hooks';
+import { useHistory } from "react-router-dom";
 
 function WeatherCard() {
+    const history = useHistory()
     const { weather, timestamp } = useAppSelector(state => state.weather);
     const { location } = useAppSelector(state => state.location);
     const city = location.city ?? "-";
     const temperature = weather.air.temperature.value?.toFixed(1) ?? "-";
     const description = weather.description ?? "-";
-    const date = new Date((timestamp ?? 0));
+    let date = new Date((timestamp ?? 0)).toLocaleString("sv");
+    if (!timestamp) {
+        date = "-";
+    }
+
+    const handleCardClicked = () => {
+        history.push("/weather/info");
+    }
 
     return (
-        <Container>
+        <Container onClick={() => handleCardClicked()}>
             <CardContainer>
                 <Title variant="h4">{description}</Title>
                 <TempContainer>
@@ -24,7 +33,7 @@ function WeatherCard() {
                         {city}
                     </FooterItem>
                     <FooterItem>
-                        {date.toLocaleString("sv")}
+                        {date}
                     </FooterItem>
                 </Footer>
             </CardContainer>
@@ -33,8 +42,8 @@ function WeatherCard() {
 }
 
 const Container = styled(Paper)`
-    min-width: 200px;
-    max-width: 300px;
+    min-width: 250px;
+    max-width: 500px;
     height: 200px;
     flex: 1 1 0;
     background-size: cover;
@@ -49,7 +58,6 @@ const CardContainer = styled.div`
     width: 100%;
     height: 100%;
     padding: 10px 5%;
-    background-color: transparent;
     cursor: pointer;
     justify-content: space-between;
     align-items: center;

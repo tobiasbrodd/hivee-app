@@ -1,17 +1,26 @@
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../store/hooks';
 
 function ClimateCard() {
+    const history = useHistory()
     const { temperature } = useAppSelector(state => state.climate);
     const value = temperature?.value?.toFixed(1) ?? "-";
     const location = temperature?.location ?? "-";
     const timestamp = temperature?.timestamp ?? 0;
-    const date = new Date(timestamp * 1000);
+    let date = new Date(timestamp * 1000).toLocaleString("sv");
+    if (timestamp <= 0) {
+        date = "-";
+    }
+
+    const handleCardClicked = () => {
+        history.push("/sensor");
+    }
 
     return (
-        <Container>
+        <Container onClick={() => handleCardClicked()}>
             <CardContainer>
                 <Title variant="h4">Temperature</Title>
                 <TempContainer>
@@ -23,7 +32,7 @@ function ClimateCard() {
                         {location}
                     </FooterItem>
                     <FooterItem>
-                        {date.toLocaleString("sv")}
+                        {date}
                     </FooterItem>
                 </Footer>
             </CardContainer>
@@ -32,8 +41,8 @@ function ClimateCard() {
 }
 
 const Container = styled(Paper)`
-    min-width: 200px;
-    max-width: 300px;
+    min-width: 250px;
+    max-width: 500px;
     height: 200px;
     flex: 1 1 0;
     background-size: cover;
@@ -48,7 +57,6 @@ const CardContainer = styled.div`
     width: 100%;
     height: 100%;
     padding: 10px 5%;
-    background-color: transparent;
     cursor: pointer;
     justify-content: space-between;
     align-items: center;
