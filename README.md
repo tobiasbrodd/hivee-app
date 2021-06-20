@@ -1,4 +1,4 @@
-# Frontend for the smart home hub Hivee
+# hivee-app
 
 Dashboard for Hivee
 
