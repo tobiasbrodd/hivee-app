@@ -7,8 +7,8 @@ import locationReducer from './slices/location/locationSlice';
 import climateReducer from './slices/climate/climateSlice';
 import settingsReducer from './slices/settings/settingsSlice';
 import { loadState, saveState } from './localStorage';
-import config from '../config.json';
 import createMiddleware from '../controllers/mqtt/mqtt';
+import config from '../config.json';
 
 const preloadState = () => {
     var loadedState = loadState();
@@ -48,7 +48,7 @@ const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
-            .prepend(createMiddleware()),
+            .prepend(createMiddleware(config.mqtt.host, config.mqtt.port)),
     preloadedState
 });
 

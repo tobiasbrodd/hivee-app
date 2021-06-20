@@ -2,13 +2,6 @@ import { createAction } from '@reduxjs/toolkit';
 import { MqttClient, connect } from 'mqtt';
 import { Middleware, MiddlewareAPI } from 'redux';
 
-const options = {
-    host: "localhost",
-    port: 8083,
-    protocol: "wss",
-    clientId: "hivee-app",
-};
-
 const topics: { [action: string]: string } = {
     "SET_TEMPERATURE": "hivee/temperature",
     "SET_HUMIDITY": "hivee/humidity",
@@ -27,7 +20,16 @@ export const mqttPublish = createAction<string, string>("MQTT_PUBLISH");
 class ReduxMQTT {
     client: MqttClient;
 
-    constructor() {
+    constructor(host: string, port: number) {
+        const options = {
+            host: host,
+            port: port,
+            protocol: "wss",
+            clientId: "hivee-app",
+        };
+
+        console.log(options);
+
         this.client = connect(options);
     }
 
@@ -61,8 +63,8 @@ class ReduxMQTT {
     }
 }
 
-export default function createMiddleware(): Middleware {
-    const reduxMQTT = new ReduxMQTT();
+export default function createMiddleware(host: string, port: number): Middleware {
+    const reduxMQTT = new ReduxMQTT(host, port);
 
     return store => next => action => {
         switch (action.type) {
