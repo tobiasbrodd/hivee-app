@@ -35,7 +35,7 @@ docker-compose up -d --build
 
 Production deployment:
 ```
-docker-compose -f docker-compaose.prod.yml up -d --build
+docker-compose -f docker-compose.prod.yml up -d --build
 ```
 
 ### hivee-core
