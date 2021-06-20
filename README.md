@@ -15,14 +15,12 @@ npm start
 ### Docker
 
 Local development:
-
 ```
 docker build -t hivee-app:dev .
 docker run -it --rm -p <3000>:3000 hivee-app:dev
 ```
 
 Production deployment:
-
 ```
 docker build -f Dockerfile.prod -t hivee-app:prod .
 docker run -it --rm -p <1337>:<80 or 443> hivee-app:prod
@@ -31,7 +29,6 @@ docker run -it --rm -p <1337>:<80 or 443> hivee-app:prod
 ### Docker Compose
 
 Local development:
-
 ```
 docker-compose up -d --build
 ```
