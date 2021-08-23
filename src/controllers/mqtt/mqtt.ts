@@ -27,10 +27,9 @@ class ReduxMQTT {
             protocol: "wss",
             clientId: "hivee-app",
         };
-
-        console.log(options);
-
-        this.client = connect(options);
+        
+        const url = `${options.protocol}://${options.host}:${options.port}`;
+        this.client = connect(url, {clientId: options.clientId});
     }
 
     connect(store: MiddlewareAPI) {
