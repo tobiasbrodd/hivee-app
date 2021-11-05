@@ -25,19 +25,24 @@ export const fetchWeather = createAsyncThunk("weather/fetchWeather", async (_, {
     }
     const apiKey: string = settings.weather.openWeather.apiKey;
 
-    if (!location.coordinates.latitude) {
-        throw new Error("No latitude!");
-    }
-    const latitude: number = location.coordinates.latitude;
+    let latitude = 59.3293;
+    let longitude = 18.0686;
 
-    if (!location.coordinates.longitude) {
-        throw new Error("No longitude!");
+    if (location.coordinates.latitude) {
+        latitude = location.coordinates.latitude;
+    } else {
+        console.log("No latitude!");
     }
-    const longitude: number = location.coordinates.longitude;
-    
+
+    if (location.coordinates.longitude) {
+        longitude = location.coordinates.longitude;
+    } else {
+        console.log("No longitude!");
+    }
+
     const data = await OpenWeather.getWeather(apiKey, latitude, longitude);
     console.log(data);
-    
+
     return data;
 })
 
