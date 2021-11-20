@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 import Routes from './Routes'
 
 function Content() {
@@ -9,7 +9,7 @@ function Content() {
     );
 }
 
-const MainContent = styled.main`
+const MainContent = styled('main')`
     flex-grow: 1;
     padding: 100px 32px 8px 32px;
 `;

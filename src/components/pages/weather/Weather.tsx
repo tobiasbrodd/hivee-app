@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import ScrollToTop from '../../common/scroll/Scroll';
+import { styled } from '@mui/material/styles';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import { useEffect } from 'react';
+import ScrollToTop from '../../common/scroll/Scroll';
 import WeatherCard from '../../common/cards/WeatherCard';
-import styled from 'styled-components';
 
 const title = "Weather";
 
@@ -33,7 +33,7 @@ export default function Weather() {
     );
 }
 
-const WeatherContainer = styled.div`
+const WeatherContainer = styled('div')`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

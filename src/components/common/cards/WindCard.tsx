@@ -1,6 +1,6 @@
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import { useAppSelector } from '../../../store/hooks';
 
 function WindCard() {
@@ -34,7 +34,7 @@ const Container = styled(Paper)`
     border: 1px solid rgba(255, 255, 255, 0.12);
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -44,7 +44,7 @@ const CardContainer = styled.div`
     align-items: center;
 `;
 
-const CardContent = styled.div`
+const CardContent = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;

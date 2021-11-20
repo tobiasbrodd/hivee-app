@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import ScrollToTop from '../../common/scroll/Scroll';
+import { styled } from '@mui/material/styles';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import { useEffect } from 'react';
-import styled from 'styled-components';
+import ScrollToTop from '../../common/scroll/Scroll';
 import ClimateCard from '../../common/cards/ClimateCard';
 
 const title = "Sensors";
@@ -33,7 +33,7 @@ export default function Sensors() {
     );
 }
 
-const SensorContainer = styled.div`
+const SensorContainer = styled('div')`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

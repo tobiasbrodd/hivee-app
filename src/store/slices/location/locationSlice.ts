@@ -15,7 +15,6 @@ const getCoordinates = () => {
 }
 
 export const fetchCoordinates = createAsyncThunk("location/fetchCoordinates", async () => {
-    console.log("Fetching coordinates...");
     const position: any = await getCoordinates();
 
     console.log("Latitude is :", position.coords.latitude);
@@ -28,7 +27,6 @@ export const fetchCoordinates = createAsyncThunk("location/fetchCoordinates", as
 })
 
 export const fetchLocation = createAsyncThunk("location/fetchLocation", async (_, { getState }) => {
-    console.log("Fetching location...");
     const { settings } = getState() as { settings: SettingsState };
     const { location } = getState() as { location: LocationState };
     if (!settings.weather.openWeather.apiKey) {

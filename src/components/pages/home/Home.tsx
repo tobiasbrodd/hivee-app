@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { styled } from '@mui/material/styles';
 import ScrollToTop from '../../common/scroll/Scroll';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import { useEffect } from 'react';
 import WeatherCard from '../../common/cards/WeatherCard';
-import styled from 'styled-components';
 import ClimateCard from '../../common/cards/ClimateCard';
 
 const title = "Home";
@@ -35,7 +35,7 @@ export default function Home() {
     );
 }
 
-const Container = styled.div`
+const Container = styled('div')`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

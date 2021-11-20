@@ -1,8 +1,8 @@
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import NightsStayIcon from '@material-ui/icons/NightsStay';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import styled from 'styled-components';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { useAppSelector } from '../../../store/hooks';
 
 function SunCard() {
@@ -51,7 +51,7 @@ const Container = styled(Paper)`
     border: 1px solid rgba(255, 255, 255, 0.12);
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -61,7 +61,7 @@ const CardContainer = styled.div`
     align-items: center;
 `;
 
-const CardContent = styled.div`
+const CardContent = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -79,7 +79,7 @@ const Value = styled(Typography)`
     margin-left: 8px;
 `;
 
-const IconContainer = styled.div`
+const IconContainer = styled('div')`
     display: flex;
     align-items: center;
     margin-bottom: 5px;

@@ -17,7 +17,6 @@ const initialState: WeatherState = {
 }
 
 export const fetchWeather = createAsyncThunk("weather/fetchWeather", async (_, { getState }) => {
-    console.log("Fetching weather...");
     const { settings } = getState() as { settings: SettingsState };
     const { location } = getState() as { location: LocationState };
     if (!settings.weather.openWeather.apiKey) {
@@ -41,7 +40,6 @@ export const fetchWeather = createAsyncThunk("weather/fetchWeather", async (_, {
     }
 
     const data = await OpenWeather.getWeather(apiKey, latitude, longitude);
-    console.log(data);
 
     return data;
 })

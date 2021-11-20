@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
-import styled from 'styled-components';
+import Link from '@mui/material/Link';
+import { styled } from '@mui/material/styles';
 import { useAppDispatch } from '../../../store/hooks';
 import { closeMenu } from '../../../store/slices/menu/menuSlice';
 import logo from "../../../assets/logo.png";
@@ -29,16 +29,15 @@ function Logo() {
     );
 }
 
-const LogoContainer = styled.div`
-`;
+const LogoContainer = styled('div')``;
 
-const Container = styled.div`
+const Container = styled('div')`
     display: flex;
     align-items: center;
     justify-content: center;
 `;
 
-const Image = styled.img`
+const Image = styled('img')`
     height: 50px;
 `;
 
@@ -47,7 +46,7 @@ const LogoLink = styled(Link)`
     color: inherit;
 ` as typeof Link;
 
-const Title = styled.h3`
+const Title = styled('h3')`
     padding-left: 8px;
     height: 30px;
 `;

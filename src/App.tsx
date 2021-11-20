@@ -1,12 +1,12 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import Content from './components/content/Content';
 import { fetchWeather } from './store/slices/weather/weatherSlice';
 import { fetchCoordinates, fetchLocation } from './store/slices/location/locationSlice';
 import { useAppDispatch } from './store/hooks';
-import { useEffect } from 'react';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ function App() {
     );
 }
 
-const AppContainer = styled.div`
+const AppContainer = styled('div')`
     display: flex;
     min-height: 100vh;
     overflow: hidden;

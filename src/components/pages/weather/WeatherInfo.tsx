@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import Typography from '@material-ui/core/Typography';
-import ScrollToTop from '../../common/scroll/Scroll';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import ScrollToTop from '../../common/scroll/Scroll';
 import AirCard from '../../common/cards/AirCard';
-import { useEffect } from 'react';
-import styled from 'styled-components';
 import WindCard from '../../common/cards/WindCard';
 import CloudCard from '../../common/cards/CloudsCard';
 import PrecipitationCard from '../../common/cards/Precipitation';
@@ -48,7 +48,7 @@ export default function WeatherInfo() {
     );
 }
 
-const Container = styled.div`
+const Container = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -56,7 +56,7 @@ const Container = styled.div`
     flex-grow: 1;
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled('div')`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

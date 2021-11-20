@@ -3,7 +3,6 @@ import ClimateState from './climateState';
 
 const parseClimate = (payload: string) => {
     const parsed = JSON.parse(payload);
-    console.log(parsed);
 
     return {
         value: parsed.value,

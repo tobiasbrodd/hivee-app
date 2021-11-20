@@ -1,11 +1,11 @@
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../store/hooks';
-import { useHistory } from "react-router-dom";
 
 function WeatherCard() {
-    const history = useHistory()
+    const navigate = useNavigate();
     const { weather, timestamp } = useAppSelector(state => state.weather);
     const { location } = useAppSelector(state => state.location);
     const city = location.city ?? "-";
@@ -16,12 +16,12 @@ function WeatherCard() {
         date = "-";
     }
 
-    const handleCardClicked = () => {
-        history.push("/weather/info");
+    const handleClick = () => {
+        navigate("/weather/info");
     }
 
     return (
-        <Container onClick={() => handleCardClicked()}>
+        <Container onClick={handleClick}>
             <CardContainer>
                 <Title variant="h4">{description}</Title>
                 <TempContainer>
@@ -52,7 +52,7 @@ const Container = styled(Paper)`
     border: 1px solid rgba(255, 255, 255, 0.12);
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -63,7 +63,7 @@ const CardContainer = styled.div`
     align-items: center;
 `;
 
-const TempContainer = styled.div`
+const TempContainer = styled('div')`
     display: flex;
     flex-direction: row;
     text-align: right;
@@ -82,8 +82,7 @@ const Symbol = styled(Typography)`
     margin-bottom: 5px;
 `;
 
-const Footer = styled.div`
-`;
+const Footer = styled('div')``;
 
 const FooterItem = styled(Typography)`
     text-align: center;

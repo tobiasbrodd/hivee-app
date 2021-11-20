@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ScrollToTop from '../../common/scroll/Scroll';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import { useEffect } from 'react';
 
 const title = "Page not found";
 

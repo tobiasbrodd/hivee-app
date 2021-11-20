@@ -1,28 +1,22 @@
 import { Link } from 'react-router-dom';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import EcoIcon from '@material-ui/icons/Eco';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import SettingsIcon from '@material-ui/icons/Settings';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import styled from 'styled-components';
-import { useTheme, Theme } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { closeMenu } from '../../store/slices/menu/menuSlice';
 import Logo from '../common/logo/Logo';
 
-interface ThemeProps {
-    theme: Theme
-}
-
 function Sidebar() {
     const menu = useAppSelector(state => state.menu);
     const dispatch = useAppDispatch();
-    const theme = useTheme();
 
     const drawer = (
         <DrawerContainer>
@@ -37,20 +31,22 @@ function Sidebar() {
                         key={"Sensors"}
                         component={Link}
                         to="/sensors"
+                        sx={{ padding: "8px 32px" }}
                         onClick={() => dispatch(closeMenu())}
                     >
-                        <ListItemIcon><EcoIcon /></ListItemIcon>
-                        <ListItemText primary={"Sensors"} />
+                        <ListItemIcon><ThermostatIcon /></ListItemIcon>
+                        <ListItemText primary={<StyledText>Sensors</StyledText>} />
                     </ListItem>
                     <ListItem
                         button
                         key={"Weather"}
                         component={Link}
                         to="/weather"
+                        sx={{ padding: "8px 32px" }}
                         onClick={() => dispatch(closeMenu())}
                     >
                         <ListItemIcon><WbSunnyIcon /></ListItemIcon>
-                        <ListItemText primary={"Weather"} />
+                        <ListItemText primary={<StyledText>Weather</StyledText>} />
                     </ListItem>
                 </List>
             </Menu>
@@ -62,10 +58,11 @@ function Sidebar() {
                         key={"Settings"}
                         component={Link}
                         to="/settings"
+                        sx={{ padding: "8px 32px" }}
                         onClick={() => dispatch(closeMenu())}
                     >
                         <ListItemIcon><SettingsIcon /></ListItemIcon>
-                        <ListItemText primary={"Settings"} />
+                        <ListItemText primary={<StyledText>Settings</StyledText>} />
                     </ListItem>
                 </List>
             </Bottom>
@@ -73,36 +70,35 @@ function Sidebar() {
     );
 
     return (
-        <NavDrawer theme={theme}>
-            <Hidden smUp implementation="css">
-                <DrawerPaper
-                    variant="temporary"
-                    anchor="left"
-                    open={menu.isOpen}
-                    onClose={() => dispatch(closeMenu())}
-                    ModalProps={{
-                        keepMounted: true
-                    }}
-                >
-                    {drawer}
-                </DrawerPaper>
-            </Hidden>
-            <Hidden xsDown implementation="css">
-                <DrawerPaper
-                    variant="permanent"
-                    open
-                >
-                    {drawer}
-                </DrawerPaper>
-            </Hidden>
+        <NavDrawer>
+            <DrawerPaper
+                sx={{ display: { xl: 'none', xs: 'block' } }}
+                variant="temporary"
+                anchor="left"
+                open={menu.isOpen}
+                onClose={() => dispatch(closeMenu())}
+                ModalProps={{
+                    keepMounted: true
+                }}
+            >
+                {drawer}
+            </DrawerPaper>
+            <DrawerPaper
+                sx={{ display: { xs: 'none', sm: 'block' } }}
+                variant="permanent"
+                open
+            >
+                {drawer}
+            </DrawerPaper>
         </NavDrawer>
     );
 }
 
-const ToolbarDiv = styled.div`
+const ToolbarDiv = styled('div')`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 75px;
 `;
 
 const DrawerPaper = styled(Drawer)`
@@ -112,25 +108,29 @@ const DrawerPaper = styled(Drawer)`
     }
 `;
 
-const NavDrawer = styled.nav`
-    ${(props: ThemeProps) => props.theme.breakpoints.up("sm")} {
+const NavDrawer = styled('nav')(({ theme }) => `
+    ${theme.breakpoints.up("sm")} {
         width: 240px;
         flex-shrink: 0;
     }
-`;
+`);
 
-const DrawerContainer = styled.div`
+const DrawerContainer = styled('div')`
     display: flex;
     flex-direction: column;
     height: 100%;
 `;
 
-const Menu = styled.div`
+const Menu = styled('div')`
     flex-grow: 1;
 `;
 
-const Bottom = styled.div`
-    
-`;
+const Bottom = styled('div')``;
+
+const StyledText = styled(Typography)(({ theme }) => `
+    ${theme.breakpoints.down("sm")} {
+        font-size: 1.4rem;
+    }
+`);
 
 export default Sidebar;

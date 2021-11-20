@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import Typography from '@material-ui/core/Typography';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import ScrollToTop from '../../common/scroll/Scroll';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import TemperatureCard from '../../common/cards/TemperatureCard';
-import { useEffect } from 'react';
-import styled from 'styled-components';
 import HumidityCard from '../../common/cards/HumidityCard';
 import PressureCard from '../../common/cards/PressureCard';
 
@@ -44,7 +44,7 @@ export default function Sensor() {
     );
 }
 
-const Container = styled.div`
+const Container = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -52,7 +52,7 @@ const Container = styled.div`
     flex-grow: 1;
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled('div')`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

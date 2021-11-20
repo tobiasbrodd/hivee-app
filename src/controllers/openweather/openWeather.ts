@@ -15,27 +15,24 @@ export default class OpenWeather {
     static WEATHER_API = "https://api.openweathermap.org/data/2.5";
     static GEO_API = "https://api.openweathermap.org/geo/1.0";
 
-    static getWeather(apiKey: string, latitude: number, longitude: number) {
-        return this.fetchWeatherData(apiKey, latitude, longitude)
-            .then(this.mapWeatherData);
+    static async getWeather(apiKey: string, latitude: number, longitude: number) {
+        const data = await this.fetchWeatherData(apiKey, latitude, longitude);
+        return this.mapWeatherData(data);
     }
 
-    static fetchWeatherData(apiKey: string, latitude: number, longitude: number) {
-        return axios.get<WeatherReponse>(this.WEATHER_API + "/weather", {
+    static async fetchWeatherData(apiKey: string, latitude: number, longitude: number) {
+        const response = await axios.get<WeatherReponse>(this.WEATHER_API + "/weather", {
             params: {
                 appid: apiKey,
                 lat: latitude.toFixed(4),
                 lon: longitude.toFixed(4),
                 units: "metric"
             }
-        }).then(response => {
-            return response.data;
         });
+        return response.data;
     }
 
     static mapWeatherData(data: WeatherReponse): Weather {
-        console.log(data);
-
         return {
             air: {
                 temperature: {
@@ -63,26 +60,23 @@ export default class OpenWeather {
         };
     }
 
-    static getLocation(apiKey: string, latitude: number, longitude: number) {
-        return this.fetchLocationData(apiKey, latitude, longitude)
-            .then(this.mapLocationData);
+    static async getLocation(apiKey: string, latitude: number, longitude: number) {
+        const data = await this.fetchLocationData(apiKey, latitude, longitude);
+        return this.mapLocationData(data);
     }
 
-    static fetchLocationData(apiKey: string, latitude: number, longitude: number) {
-        return axios.get<GeoResponse[]>(this.GEO_API + "/reverse", {
+    static async fetchLocationData(apiKey: string, latitude: number, longitude: number) {
+        const response = await axios.get<GeoResponse[]>(this.GEO_API + "/reverse", {
             params: {
                 appid: apiKey,
                 lat: latitude.toFixed(4),
                 lon: longitude.toFixed(4)
             }
-        }).then(response => {
-            return response.data;
         });
+        return response.data;
     }
 
     static mapLocationData(data: GeoResponse[]): Location {
-        console.log(data);
-
         return {
             city: data[0].name,
             country: data[0].country

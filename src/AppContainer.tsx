@@ -1,25 +1,23 @@
 import React, { useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 import { BrowserRouter } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from "styled-components";
-import { ThemeProvider as MuiThemeProvider, StylesProvider } from "@material-ui/core/styles";
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import App from "./App";
 import { mqttConnect } from './controllers/mqtt/mqtt';
+import App from "./App";
 
 function ThemedApp() {
     const appTheme = useAppSelector(state => state.theme);
+    const isDark = appTheme.value === "dark";
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(mqttConnect());
     }, [dispatch]);
 
     const theme = useMemo(() => {
-        const isDark = appTheme.value === "dark";
-        return createMuiTheme({
+        return createTheme({
             palette: {
-                type: isDark ? "dark" : "light",
                 primary: {
                     main: "#fff",
                     dark: "#000",
@@ -118,39 +116,69 @@ function ThemedApp() {
                     textTransform: 'none'
                 }
             },
-            props: {
+            components: {
                 MuiButtonBase: {
-                    disableRipple: true
-                }
-            },
-            overrides: {
+                    defaultProps: {
+                        disableRipple: true
+                    }
+                },
+                MuiButton: {
+                    defaultProps: {
+                        disableRipple: true,
+                    },
+                },
                 MuiTabs: {
-                    indicator: {
-                        transition: "none"
+                    styleOverrides: {
+                        indicator: {
+                            transition: "none"
+                        }
                     }
                 },
                 MuiMenuItem: {
-                    root: {
-                        fontSize: "1.2rem"
+                    styleOverrides: {
+                        root: {
+                            fontSize: "1.2rem"
+                        }
+                    }
+                },
+                MuiDrawer: {
+                    styleOverrides: {
+                        paper: {
+                            borderColor: isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)",
+                        }
+                    }
+                },
+                MuiDivider: {
+                    styleOverrides: {
+                        root: {
+                            borderColor: isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)",
+                        }
+                    }
+                },
+                MuiListItemIcon: {
+                    styleOverrides: {
+                        root: {
+                            color: isDark ? "rgba(255,255,255,0.54)" : "rgba(0,0,0,0.54)",
+                            minWidth: "40px"
+                        }
                     }
                 }
             }
         })
-    }, [appTheme]);
+    }, [isDark]);
 
     return (
-        <StylesProvider injectFirst>
-            <MuiThemeProvider theme={theme}>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <React.StrictMode>
-                        <BrowserRouter>
-                            <App />
-                        </BrowserRouter>
-                    </React.StrictMode>
-                </ThemeProvider>
-            </MuiThemeProvider>
-        </StylesProvider>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <React.StrictMode>
+                <BrowserRouter>
+                    <Helmet>
+                        <meta name="theme-color" content={isDark ? "#000" : "#fff"} />
+                    </Helmet>
+                    <App />
+                </BrowserRouter>
+            </React.StrictMode>
+        </ThemeProvider>
     );
 }
 
