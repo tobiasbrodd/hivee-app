@@ -3,9 +3,13 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { useAppSelector } from '../../../store/hooks';
 
-function PressureCard() {
-    const { pressure } = useAppSelector(state => state.climate);
-    const value = pressure?.value?.toFixed(1) ?? "-";
+interface CardProps {
+    location: string
+}
+
+function PressureCard({ location }: CardProps) {
+    const { pressure } = useAppSelector(state => state.sensors);
+    const value = pressure[location]?.value?.toFixed(1) ?? "-";
 
     return (
         <Container>

@@ -3,9 +3,13 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { useAppSelector } from '../../../store/hooks';
 
-function HumidityCard() {
-    const { humidity } = useAppSelector(state => state.climate);
-    const value = humidity?.value?.toFixed(1) ?? "-";
+interface CardProps {
+    location: string
+}
+
+function HumidityCard({ location }: CardProps) {
+    const { humidity } = useAppSelector(state => state.sensors);
+    const value = humidity[location]?.value?.toFixed(1) ?? "-";
 
     return (
         <Container>

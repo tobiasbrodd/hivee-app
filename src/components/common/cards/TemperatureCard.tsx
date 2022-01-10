@@ -3,9 +3,13 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { useAppSelector } from '../../../store/hooks';
 
-function TemperatureCard() {
-    const { temperature } = useAppSelector(state => state.climate);
-    const value = temperature?.value?.toFixed(1) ?? "-";
+interface CardProps {
+    location: string
+}
+
+function TemperatureCard({ location }: CardProps) {
+    const { temperature } = useAppSelector(state => state.sensors);
+    const value = temperature[location]?.value?.toFixed(1) ?? "-";
 
     return (
         <Container>

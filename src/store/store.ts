@@ -4,7 +4,7 @@ import themeReducer from './slices/theme/themeSlice';
 import menuReducer from './slices/menu/menuSlice';
 import weatherReducer from './slices/weather/weatherSlice';
 import locationReducer from './slices/location/locationSlice';
-import climateReducer from './slices/climate/climateSlice';
+import sensorsReducer from './slices/sensors/sensorsSlice';
 import settingsReducer from './slices/settings/settingsSlice';
 import { loadState, saveState } from './localStorage';
 import createMiddleware from '../controllers/mqtt/mqtt';
@@ -43,7 +43,7 @@ const store = configureStore({
         menu: menuReducer,
         weather: weatherReducer,
         location: locationReducer,
-        climate: climateReducer,
+        sensors: sensorsReducer,
         settings: settingsReducer,
     },
     middleware: (getDefaultMiddleware) =>

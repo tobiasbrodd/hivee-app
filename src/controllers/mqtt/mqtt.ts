@@ -6,12 +6,14 @@ const topics: { [action: string]: string } = {
     "SET_TEMPERATURE": "hivee/temperature",
     "SET_HUMIDITY": "hivee/humidity",
     "SET_PRESSURE": "hivee/pressure",
+    "SET_CONTACT": "hivee/contact",
 };
 
 const actions: { [topic: string]: string } = {
     "hivee/temperature": "SET_TEMPERATURE",
     "hivee/humidity": "SET_HUMIDITY",
     "hivee/pressure": "SET_PRESSURE",
+    "hivee/contact": "SET_CONTACT",
 };
 
 export const mqttConnect = createAction("MQTT_CONNECT");

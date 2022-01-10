@@ -6,6 +6,7 @@ import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import WeatherCard from '../../common/cards/WeatherCard';
 import ClimateCard from '../../common/cards/ClimateCard';
+import DoorCard from '../../common/cards/DoorCard';
 
 const title = "Home";
 
@@ -28,7 +29,9 @@ export default function Home() {
             </Helmet>
             <Container>
                 <WeatherCard />
-                <ClimateCard />
+                <ClimateCard location="Indoor" />
+                <ClimateCard location="Extra" />
+                <DoorCard location="Door" />
             </Container>
             <ScrollToTop />
         </div>

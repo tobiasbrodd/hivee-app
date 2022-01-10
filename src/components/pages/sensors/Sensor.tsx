@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import ScrollToTop from '../../common/scroll/Scroll';
 import { setTitle } from '../../../store/slices/title/titleSlice';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppDispatch } from '../../../store/hooks';
 import TemperatureCard from '../../common/cards/TemperatureCard';
 import HumidityCard from '../../common/cards/HumidityCard';
 import PressureCard from '../../common/cards/PressureCard';
@@ -22,8 +23,8 @@ export default function Sensor() {
         dispatch(setTitle(title));
     }, [dispatch]);
 
-    const { temperature } = useAppSelector(state => state.climate);
-    const location = temperature?.location ?? "-";
+    const params = useParams();
+    const location = params["location"];
 
     return (
         <div>
@@ -34,9 +35,9 @@ export default function Sensor() {
             <Container>
                 <Title variant="h1">{location}</Title>
                 <CardContainer>
-                    <TemperatureCard />
-                    <HumidityCard />
-                    <PressureCard />
+                    <TemperatureCard location="Indoor" />
+                    <HumidityCard location="Indoor" />
+                    <PressureCard location="Indoor" />
                 </CardContainer>
             </Container>
             <ScrollToTop />

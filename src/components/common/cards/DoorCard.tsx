@@ -8,29 +8,28 @@ interface CardProps {
     location: string
 }
 
-function ClimateCard({ location }: CardProps) {
+function DoorCard({ location }: CardProps) {
     const navigate = useNavigate();
-    const { temperature } = useAppSelector(state => state.sensors);
-    console.log(temperature);
-    const value = temperature[location]?.value?.toFixed(1) ?? "-";
-    const timestamp = temperature[location]?.timestamp ?? 0;
+    const { contact } = useAppSelector(state => state.sensors);
+    const value = contact[location]?.value ?? false;
+    const timestamp = contact[location]?.timestamp ?? 0;
     let date = new Date(timestamp * 1000).toLocaleString("sv");
     if (timestamp <= 0) {
         date = "-";
     }
 
     const handleClick = () => {
-        navigate("/sensor/" + location);
+        navigate("/sensor");
     }
 
     return (
         <Container onClick={handleClick}>
             <CardContainer>
-                <Title variant="h4">Temperature</Title>
-                <TempContainer>
-                    <Temp variant="h1">{value}</Temp>
-                    <Symbol variant="h3">{"°"}</Symbol>
-                </TempContainer>
+                <Title variant="h4">Door</Title>
+                <ContactContainer>
+                    <Symbol variant="h3">Contact</Symbol>
+                    <Contact variant="h1">{value}</Contact>
+                </ContactContainer>
                 <Footer>
                     <FooterItem>
                         {location}
@@ -66,7 +65,7 @@ const CardContainer = styled('div')`
     align-items: center;
 `;
 
-const TempContainer = styled('div')`
+const ContactContainer = styled('div')`
     display: flex;
     flex-direction: row;
     text-align: right;
@@ -77,7 +76,7 @@ const Title = styled(Typography)`
     margin-bottom: 5px;
 `;
 
-const Temp = styled(Typography)`
+const Contact = styled(Typography)`
     margin-bottom: 5px;
 `;
 
@@ -92,4 +91,4 @@ const FooterItem = styled(Typography)`
     margin-bottom: 5px;
 `;
 
-export default ClimateCard;
+export default DoorCard;

@@ -5,6 +5,7 @@ import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import ScrollToTop from '../../common/scroll/Scroll';
 import ClimateCard from '../../common/cards/ClimateCard';
+import DoorCard from '../../common/cards/DoorCard';
 
 const title = "Sensors";
 
@@ -26,7 +27,9 @@ export default function Sensors() {
                 <meta name="description" content={helmet.description} />
             </Helmet>
             <SensorContainer>
-                <ClimateCard />
+                <ClimateCard location="Indoor" />
+                <ClimateCard location="Extra" />
+                <DoorCard location="Door" />
             </SensorContainer>
             <ScrollToTop />
         </div>
