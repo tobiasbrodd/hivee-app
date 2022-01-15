@@ -11,7 +11,7 @@ interface CardProps {
 function DoorCard({ location }: CardProps) {
     const navigate = useNavigate();
     const { contact } = useAppSelector(state => state.sensors);
-    const value = contact[location]?.value ?? false;
+    const value = contact[location]?.value;
     const timestamp = contact[location]?.timestamp ?? 0;
     let date = new Date(timestamp * 1000).toLocaleString("sv");
     if (timestamp <= 0) {
@@ -19,7 +19,7 @@ function DoorCard({ location }: CardProps) {
     }
 
     const handleClick = () => {
-        navigate("/sensor");
+        navigate("/door/" + location);
     }
 
     return (
@@ -27,8 +27,7 @@ function DoorCard({ location }: CardProps) {
             <CardContainer>
                 <Title variant="h4">Door</Title>
                 <ContactContainer>
-                    <Symbol variant="h3">Contact</Symbol>
-                    <Contact variant="h1">{value}</Contact>
+                    <Contact variant="h3">{value ? "Closed" : "Open"}</Contact>
                 </ContactContainer>
                 <Footer>
                     <FooterItem>
@@ -77,10 +76,6 @@ const Title = styled(Typography)`
 `;
 
 const Contact = styled(Typography)`
-    margin-bottom: 5px;
-`;
-
-const Symbol = styled(Typography)`
     margin-bottom: 5px;
 `;
 

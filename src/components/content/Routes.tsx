@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/home/Home';
 import Sensors from '../pages/sensors/Sensors';
-import Sensor from '../pages/sensors/Sensor';
+import Measure from '../pages/sensors/Measure';
+import Door from '../pages/sensors/Door';
 import Settings from '../pages/settings/Settings';
 import NotFound from '../pages/notfound/NotFound';
 import Weather from '../pages/weather/Weather';
@@ -11,7 +12,8 @@ export default function Router() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/sensor/:location" element={<Sensor />} />
+            <Route path="/measure/:location" element={<Measure />} />
+            <Route path="/door/:location" element={<Door />} />
             <Route path="/sensors" element={<Sensors />} />
             <Route path="/weather/info" element={<WeatherInfo />} />
             <Route path="/weather" element={<Weather />} />

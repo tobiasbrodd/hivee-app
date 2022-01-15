@@ -1,25 +1,29 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import ScrollToTop from '../../common/scroll/Scroll';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import WeatherCard from '../../common/cards/WeatherCard';
-import MeasureCard from '../../common/cards/MeasureCard';
-import DoorCard from '../../common/cards/DoorCard';
+import TemperatureCard from '../../common/cards/TemperatureCard';
+import ContactCard from '../../common/cards/ContactCard';
 
-const title = "Home";
+const title = "Sensor";
 
 const helmet = {
-    title: "Hivee - Home",
-    description: "Hivee home."
+    title: "Hivee - Door",
+    description: "Hivee door."
 };
 
-export default function Home() {
+export default function Door() {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(setTitle(title));
     }, [dispatch]);
+
+    const params = useParams();
+    const location = params["location"] ?? "";
 
     return (
         <div>
@@ -28,10 +32,11 @@ export default function Home() {
                 <meta name="description" content={helmet.description} />
             </Helmet>
             <Container>
-                <WeatherCard />
-                <MeasureCard location="Indoor" />
-                <MeasureCard location="Extra" />
-                <DoorCard location="Door" />
+                <Title variant="h1">{location}</Title>
+                <CardContainer>
+                    <TemperatureCard location={location} />
+                    <ContactCard location={location} />
+                </CardContainer>
             </Container>
             <ScrollToTop />
         </div>
@@ -40,9 +45,22 @@ export default function Home() {
 
 const Container = styled('div')`
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    flex-grow: 1;
+`;
+
+const CardContainer = styled('div')`
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
     align-items: center;
     width: 100%;
+`;
+
+const Title = styled(Typography)`
+    text-align: center;
+    margin-bottom: 5px;
 `;

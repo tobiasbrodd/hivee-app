@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import { setTitle } from '../../../store/slices/title/titleSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import ScrollToTop from '../../common/scroll/Scroll';
-import ClimateCard from '../../common/cards/ClimateCard';
+import MeasureCard from '../../common/cards/MeasureCard';
 import DoorCard from '../../common/cards/DoorCard';
 
 const title = "Sensors";
@@ -27,8 +27,8 @@ export default function Sensors() {
                 <meta name="description" content={helmet.description} />
             </Helmet>
             <SensorContainer>
-                <ClimateCard location="Indoor" />
-                <ClimateCard location="Extra" />
+                <MeasureCard location="Indoor" />
+                <MeasureCard location="Extra" />
                 <DoorCard location="Door" />
             </SensorContainer>
             <ScrollToTop />

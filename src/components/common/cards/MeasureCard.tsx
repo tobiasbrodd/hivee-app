@@ -8,7 +8,7 @@ interface CardProps {
     location: string
 }
 
-function ClimateCard({ location }: CardProps) {
+function MeasureCard({ location }: CardProps) {
     const navigate = useNavigate();
     const { temperature } = useAppSelector(state => state.sensors);
     console.log(temperature);
@@ -20,7 +20,7 @@ function ClimateCard({ location }: CardProps) {
     }
 
     const handleClick = () => {
-        navigate("/sensor/" + location);
+        navigate("/measure/" + location);
     }
 
     return (
@@ -92,4 +92,4 @@ const FooterItem = styled(Typography)`
     margin-bottom: 5px;
 `;
 
-export default ClimateCard;
+export default MeasureCard;

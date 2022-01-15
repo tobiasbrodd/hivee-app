@@ -13,18 +13,18 @@ import PressureCard from '../../common/cards/PressureCard';
 const title = "Sensor";
 
 const helmet = {
-    title: "Hivee - Sensor",
-    description: "Hivee sensor."
+    title: "Hivee - Measure",
+    description: "Hivee measure."
 };
 
-export default function Sensor() {
+export default function Measure() {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(setTitle(title));
     }, [dispatch]);
 
     const params = useParams();
-    const location = params["location"];
+    const location = params["location"] ?? "";;
 
     return (
         <div>
@@ -35,9 +35,9 @@ export default function Sensor() {
             <Container>
                 <Title variant="h1">{location}</Title>
                 <CardContainer>
-                    <TemperatureCard location="Indoor" />
-                    <HumidityCard location="Indoor" />
-                    <PressureCard location="Indoor" />
+                    <TemperatureCard location={location} />
+                    <HumidityCard location={location} />
+                    <PressureCard location={location} />
                 </CardContainer>
             </Container>
             <ScrollToTop />
